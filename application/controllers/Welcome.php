@@ -15,9 +15,10 @@ class Welcome extends REST_Controller {
     */
 	public function index_get($id = 0)
 	{
-        //$data = $this->pm->getPrintInfo($id);
+		$id = $this->input->get("id");
+        $data = $this->pm->getPrintInfo($id);
      
-        $this->response($id, REST_Controller::HTTP_OK);
+        $this->response($data, REST_Controller::HTTP_OK);
 	}
 
 	/**
@@ -38,8 +39,9 @@ class Welcome extends REST_Controller {
      *
      * @return Response
     */
-    public function index_put($id)
+    public function index_put()
     {
+    	$id = $this->input->get("id");
         $input = $this->put();
     	$data = $this->pm->update($input, $id);
         $this->response(['Item updated successfully.'], REST_Controller::HTTP_OK);
@@ -50,9 +52,10 @@ class Welcome extends REST_Controller {
      *
      * @return Response
     */
-    public function index_delete($id)
+    public function index_delete()
     {
-        $this->db->delete('items', array('id'=>$id));
+    	$id = $this->input->get("id");
+        $this->pm->delete($id);
         $this->response(['Item deleted successfully.'], REST_Controller::HTTP_OK);
     }
 }
