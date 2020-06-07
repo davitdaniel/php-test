@@ -15,9 +15,9 @@ class Welcome extends REST_Controller {
     */
 	public function index_get($id = 0)
 	{
-        //$data = $this->pm->getPrintInfo($id);
+        $data = $this->pm->getPrintInfo($id);
      
-        $this->response($id, REST_Controller::HTTP_OK);
+        $this->response($data, REST_Controller::HTTP_OK);
 	}
 
 	/**
