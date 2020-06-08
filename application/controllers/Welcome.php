@@ -63,4 +63,8 @@ class Welcome extends REST_Controller {
         $this->pm->delete($id);
         $this->response(['Item deleted successfully.'], REST_Controller::HTTP_OK);
     }
+
+    public function index_options() {
+        return $this->response(NULL, REST_Controller::HTTP_OK);
+    }
 }
