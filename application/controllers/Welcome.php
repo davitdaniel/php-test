@@ -29,9 +29,11 @@ class Welcome extends REST_Controller {
     public function index_post()
     {
         $input = $this->input->post();
-        $data = $this->pm->insert($input);
+        $insertId = $this->pm->insert($input);
      
-        $this->response(['Item created successfully.'], REST_Controller::HTTP_OK);
+        $data = $this->pm->getPrintInfo($insertId);
+     
+        $this->response($data, REST_Controller::HTTP_OK);
     } 
      
     /**
