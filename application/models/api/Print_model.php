@@ -21,6 +21,9 @@ class Print_model extends CI_Model{
 
     public function insert($data)
 	{
+		$date = date("Y-m-d H:i:s");
+		$expired = date('Y-m-d H:i:s', strtotime('-1 day', strtotime($date)));
+		$this->db->where(array('created_at<' => $expired))->delete($this->_table);
 		$this->db->insert($this->_table, $data);
 		
 		return $this->db->insert_id();
