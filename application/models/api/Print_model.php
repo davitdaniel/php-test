@@ -1,7 +1,7 @@
 <?php
 
 class Print_model extends CI_Model{
-    
+
     protected $_table = "sellify_print_info";
 
     public function __construct() {		
@@ -21,6 +21,21 @@ class Print_model extends CI_Model{
 
     public function insert($data)
 	{
+		$data = json_decode($data[0], true);
+		$data = array(
+			'first_name' => $data['first_name'],
+			'sur_name' => $data['sur_name'],
+			'title' => $data['title'],
+			'company_name' => $data['company_name'],
+			'company_logo' => $data['company_logo'],
+			'company_website' => $data['company_website'],
+			'business_goals' => $data['business_goals'],
+			'textbox1' => $data['textbox1'],
+			'textbox2' => $data['textbox2'],
+			'textbox3' => $data['textbox3'],
+			'textbox4' => $data['textbox4']
+		);
+
 		$date = date("Y-m-d H:i:s");
 		$expired = date('Y-m-d H:i:s', strtotime('-1 day', strtotime($date)));
 		$this->db->where(array('created_at<' => $expired))->delete($this->_table);
