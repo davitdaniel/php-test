@@ -21,7 +21,6 @@ class Print_model extends CI_Model{
 
     public function insert($data)
 	{
-		$data = json_decode($data[0], true);
 		$data = array(
 			'first_name' => $data['first_name'],
 			'sur_name' => $data['sur_name'],
