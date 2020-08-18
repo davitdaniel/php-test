@@ -67,4 +67,6 @@ class Welcome extends REST_Controller {
     public function index_options() {
         return $this->response(NULL, REST_Controller::HTTP_OK);
     }
+
+    
 }

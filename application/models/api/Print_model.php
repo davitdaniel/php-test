@@ -29,6 +29,9 @@ class Print_model extends CI_Model{
 			'company_logo' => $data['company_logo'],
 			'company_website' => $data['company_website'],
 			'business_goals' => $data['business_goals'],
+			'compay_logo_file' => $data['compay_logo_file'],
+			'user_avatar_file' => $data['user_avatar_file'],
+			'product_logo_file' => $data['product_logo_file'],
 			'textbox1' => $data['textbox1'],
 			'textbox2' => $data['textbox2'],
 			'textbox3' => $data['textbox3'],
@@ -52,5 +55,11 @@ class Print_model extends CI_Model{
 	public function delete($id)
 	{
 		return $this->db->delete($this->_table, array('id'=>$id));
+	}
+
+	public function update_image($data, $id)
+	{
+		 $data = $this->db->update($this->_table, $data, array('id'=>$id));
+		return $data;
 	}
 }

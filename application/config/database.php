@@ -75,10 +75,10 @@ $query_builder = TRUE;
 
 $db['default'] = array(
 	'dsn'	=> '',
-	'hostname' => '108.61.117.17',
+	'hostname' => '66.42.124.253',
 	'username' => 'root',
 	'password' => 'bluesky0418!',
-	'database' => 'test',
+	'database' => 'sellify',
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
 	'pconnect' => FALSE,
