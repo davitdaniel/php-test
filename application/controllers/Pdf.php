@@ -5,6 +5,7 @@ class Pdf extends CI_Controller {
     public function print($id) {
         $this->load->model('api/Print_model','pm');
         $data = $this->pm->getPrintInfo($id);
+        $this->load->helper('url');
         $this->load->view('pdf', $data);
     }
 }
