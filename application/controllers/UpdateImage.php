@@ -23,7 +23,7 @@ class UpdateImage extends REST_Controller {
         
 		$config['upload_path']          = './';
 		$config['allowed_types']        = 'gif|jpg|png';
-		$config['max_size']             = 1000;
+		$config['max_size']             = 2000;
 		$config['max_width']            = 1024;
 		$config['max_height']           = 768;
 
@@ -37,7 +37,8 @@ class UpdateImage extends REST_Controller {
 		else
 		{
             $upload_product_logo_file_data = $this->upload->data();
-            $binary_data = file_get_contents($upload_product_logo_file_data["full_path"]);
+            $this->image_crop($upload_product_logo_file_data["full_path"]);
+            $binary_data = file_get_contents('./output.png');
 			$data = array(
                 'compay_logo_file' => '',
                 'user_avatar_file' => '',
@@ -50,5 +51,31 @@ class UpdateImage extends REST_Controller {
             $this->response($data, REST_Controller::HTTP_OK);
         }
           
+    }
+    
+    public function image_crop($filename) {
+        $image_s = imagecreatefromstring(file_get_contents($filename));
+        $width = imagesx($image_s);
+        $height = imagesy($image_s);
+        $newwidth = 285;
+        $newheight = 285;
+        $image = imagecreatetruecolor($newwidth, $newheight);
+        imagealphablending($image,true);
+        imagecopyresampled($image, $image_s,0,0,0,0,$newwidth,$newheight, $width, $height);
+
+        $mask = imagecreatetruecolor($newwidth, $newheight);
+        $transparent = imagecolorallocate($mask, 255,0,0);
+        imagecolortransparent($mask, $transparent);
+        imagefilledellipse($mask, $newwidth/2, $newheight/2, $newwidth, $newheight, $transparent);
+        $red = imagecolorallocate($mask,0,0,0);
+        imagecopymerge($image, $mask,0,0,0,0,$newwidth,$newheight,100);
+        imagecolortransparent($image,$red);
+        imagefill($image, 0, 0, $red);
+
+        header('Conent-type: image/png');
+        imagepng($image);
+        imagepng($image, './output.png');
+        imagedestory($image);
+        imagedestory($mask);
     }
 }
