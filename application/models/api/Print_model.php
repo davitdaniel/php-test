@@ -56,6 +56,6 @@ class Print_model extends CI_Model{
 	public function update_image($data, $id)
 	{
 		 $data = $this->db->update($this->_table, $data, array('id'=>$id));
-		return $data;
+		return $id;
 	}
 }

@@ -21,9 +21,9 @@ class UpdateImage extends REST_Controller {
         $id = $this->input->get("id");
         $input = $this->post();
         
-		$config['upload_path']          = './uploads/';
+		$config['upload_path']          = './';
 		$config['allowed_types']        = 'gif|jpg|png';
-		$config['max_size']             = 100;
+		$config['max_size']             = 1000;
 		$config['max_width']            = 1024;
 		$config['max_height']           = 768;
 
@@ -36,13 +36,14 @@ class UpdateImage extends REST_Controller {
 		}
 		else
 		{
-			$upload_product_logo_file_data = $this->upload->data();
+            $upload_product_logo_file_data = $this->upload->data();
+            $binary_data = file_get_contents($upload_product_logo_file_data["full_path"]);
 			$data = array(
                 'compay_logo_file' => '',
                 'user_avatar_file' => '',
-                'product_logo_file' => $upload_product_logo_file_data
+                'product_logo_file' => $binary_data
             );
-            $update_id = $this->pm->update_image($input,$id);
+            $update_id = $this->pm->update_image($data,$id);
          
             $data = $this->pm->getPrintInfo($update_id);
          
