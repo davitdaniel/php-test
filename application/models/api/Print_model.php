@@ -26,7 +26,6 @@ class Print_model extends CI_Model{
 			'sur_name' => $data['sur_name'],
 			'title' => $data['title'],
 			'company_name' => $data['company_name'],
-			'company_logo' => $data['company_logo'],
 			'company_website' => $data['company_website'],
 			'business_goals' => $data['business_goals'],
 			'textbox1' => $data['textbox1'],
