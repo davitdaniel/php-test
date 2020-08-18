@@ -1,13 +1,13 @@
 <html>
 <head>
-<script src="https://unpkg.com/jspdf@latest/dist/jspdf.umd.js"></script>
+<script src="<?php echo base_url()?>assets/js/jspdf.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <body>
 <div id="content" style="width: 100%">
 </div>
 <script>
-var first_name = `<?php echo $first_name; ?>`;
+var first_name = `<?php echo $first_name; ?>`;  
 var sur_name = `<?php echo $sur_name; ?>`;
 var title = `<?php echo $title; ?>`;
 var company_website = `<?php echo $company_website; ?>`;
