@@ -37,8 +37,8 @@ class UpdateImage extends REST_Controller {
 		else
 		{
             $upload_product_logo_file_data = $this->upload->data();
-            $this->image_crop($upload_product_logo_file_data["full_path"]);
-            $binary_data = file_get_contents('./output.png');
+            $binary_data = $this->image_crop($upload_product_logo_file_data["full_path"]);
+            
 			$data = array(
                 'compay_logo_file' => '',
                 'user_avatar_file' => '',
@@ -57,7 +57,8 @@ class UpdateImage extends REST_Controller {
         $image_s = imagecreatefromstring(file_get_contents($filename));
         $width = imagesx($image_s);
         $height = imagesy($image_s);
-        $newwidth = 285;
+        $image_aspect_ratio = ($width / $height);
+        $newwidth = 285 * $image_aspect_ratio ;
         $newheight = 285;
         $image = imagecreatetruecolor($newwidth, $newheight);
         imagealphablending($image,true);
@@ -66,7 +67,7 @@ class UpdateImage extends REST_Controller {
         $mask = imagecreatetruecolor($newwidth, $newheight);
         $transparent = imagecolorallocate($mask, 255,0,0);
         imagecolortransparent($mask, $transparent);
-        imagefilledellipse($mask, $newwidth/2, $newheight/2, $newwidth, $newheight, $transparent);
+        imagefilledellipse($mask, $newwidth/2, $newheight/2, min($newwidth,$newheight), min($newwidth,$newheight), $transparent);
         $red = imagecolorallocate($mask,0,0,0);
         imagecopymerge($image, $mask,0,0,0,0,$newwidth,$newheight,100);
         imagecolortransparent($image,$red);
@@ -75,7 +76,7 @@ class UpdateImage extends REST_Controller {
         header('Conent-type: image/png');
         imagepng($image);
         imagepng($image, './output.png');
-        imagedestory($image);
-        imagedestory($mask);
+        $binary_data = file_get_contents('./output.png');
+        return  $binary_data;
     }
 }
