@@ -11,9 +11,9 @@ class Print_model extends CI_Model{
 
     public function getPrintInfo($id) {
     	if(!empty($id)){
-            $data = $this->db->get_where($this->_table, ['id' => $id])->row_array();
+            $data = $this->db->select("id, first_name, sur_name, title, company_name, business_goals,textbox1, textbox2,textbox3,textbox4, created_at ")->get_where($this->_table, ['id' => $id])->row_array();
         }else{
-            $data = $this->db->get($this->_table)->result();
+            $data = $this->db->select("id, first_name, sur_name, title, company_name, business_goals,textbox1, textbox2,textbox3,textbox4, created_at ")->get($this->_table)->result();
         }
       	
       	return $data;
