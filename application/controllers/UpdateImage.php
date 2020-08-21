@@ -28,28 +28,33 @@ class UpdateImage extends REST_Controller {
 		$config['max_height']           = 768;
 
 		$this->load->library('upload', $config);
-
-		if ( ! $this->upload->do_upload('product_logo'))
-		{
-                $error = array('error' => $this->upload->display_errors());
-                $this->response($error, REST_Controller::HTTP_OK);
-		}
-		else
+        $user_avatar_file_data = '';
+        $product_logo_file_data = '';
+		if ($this->upload->do_upload('product_logo'))
 		{
             $upload_product_logo_file_data = $this->upload->data();
-            $binary_data = $this->image_crop($upload_product_logo_file_data["full_path"]);
-            
-			$data = array(
-                'compay_logo_file' => '',
-                'user_avatar_file' => '',
-                'product_logo_file' => $binary_data
-            );
-            $update_id = $this->pm->update_image($data,$id);
-         
-            $data = $this->pm->getPrintInfo($update_id);
-         
+            $product_logo_file_data = $this->image_crop($upload_product_logo_file_data["full_path"]);
+		}
+       if ($this->upload->do_upload('user_avatar'))
+		{
+            $upload_user_avatar_file_data = $this->upload->data();
+            $user_avatar_file_data = $this->image_crop($upload_user_avatar_file_data["full_path"]);
+		}
+        $data = array(
+            'compay_logo_file' => '',
+            'user_avatar_file' => $user_avatar_file_data,
+            'product_logo_file' => $product_logo_file_data
+        );
+        if($data->user_avatar_file == '' && $data->user_avatar_file == '' ) {
+            $data = $this->pm->getPrintInfo($id);
             $this->response($data, REST_Controller::HTTP_OK);
         }
+        
+        $update_id = $this->pm->update_image($data,$id);
+     
+        $data = $this->pm->getPrintInfo($update_id);
+     
+        $this->response($data, REST_Controller::HTTP_OK);
           
     }
     
