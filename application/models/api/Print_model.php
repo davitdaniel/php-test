@@ -19,6 +19,37 @@ class Print_model extends CI_Model{
       	return $data;
     }
 
+	
+	public function getCompanyLogoImageById($id) {
+    	if(!empty($id)){
+            $data = $this->db->select("company_logo_file")->get_where($this->_table, ['id' => $id])->row_array()["company_logo_file"];
+        }
+      	else {
+			  $data = '';
+		  }
+      	return $data;
+	}
+	
+	public function getUserAvatarById($id) {
+    	if(!empty($id)){
+            $data = $this->db->select("user_avatar_file")->get_where($this->_table, ['id' => $id])->row_array()["user_avatar_file"];
+        }
+      	else {
+			  $data = '';
+		  }
+      	return $data;
+	}
+	
+	public function getProductLogoImageById($id) {
+    	if(!empty($id)){
+            $data = $this->db->select("product_logo_file")->get_where($this->_table, ['id' => $id])->row_array()["product_logo_file"];
+        }
+      	else {
+			  $data = '';
+		  }
+      	return $data;
+	}
+	
     public function insert($data)
 	{
 		$data = array(

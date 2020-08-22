@@ -30,6 +30,7 @@ class UpdateImage extends REST_Controller {
 		$this->load->library('upload', $config);
         $user_avatar_file_data = '';
         $product_logo_file_data = '';
+        $company_logo_file_data = '';
 		if ($this->upload->do_upload('product_logo'))
 		{
             $upload_product_logo_file_data = $this->upload->data();
@@ -39,9 +40,15 @@ class UpdateImage extends REST_Controller {
 		{
             $upload_user_avatar_file_data = $this->upload->data();
             $user_avatar_file_data = $this->image_crop($upload_user_avatar_file_data["full_path"]);
+        }
+        
+        if ($this->upload->do_upload('company_logo'))
+		{
+            $upload_company_logo_file_data = $this->upload->data();
+            $company_logo_file_data = $this->image_crop($upload_company_logo_file_data["full_path"]);
 		}
         $data = array(
-            'compay_logo_file' => '',
+            'company_logo_file' => $company_logo_file_data,
             'user_avatar_file' => $user_avatar_file_data,
             'product_logo_file' => $product_logo_file_data
         );
