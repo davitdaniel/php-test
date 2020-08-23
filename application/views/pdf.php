@@ -38,7 +38,7 @@ async function printPDF() {
     $("#content").height($("body").height());
     const doc = new jsPDF({
         orientation: 'portrait',
-        format: [800, 1714]
+        format: [282, 610]
     });
     const width = 22;
     const lastWidth = 38;
