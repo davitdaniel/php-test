@@ -26,13 +26,23 @@ function loadImage(url) {
 }
 
 async function printPDF() {
-    let logo1 = await loadImage('/img/pdf.png.jpg');
+    const logo1 = await loadImage('/img/pdf.png.jpg');
+    const logo2 = await loadImage('/index.php/Image/product_logo/<?php echo $id; ?>');
+    // const logo2 = await loadImage('/index.php/Image/product_logo/16');
+    const logo3 = await loadImage('/index.php/Image/user_avatar/<?php echo $id; ?>');
     $("#content").height($("body").height());
     const doc = new jsPDF({
         orientation: 'portrait',
         format: [800, 1714]
     });
+    const width = 22;
+    const lastWidth = 38;
     doc.addImage(logo1, "JPEG", 0, 0, 282, 610);
+    doc.addImage(logo2, "PNG", 30, 4.5, width, width);
+    doc.addImage(logo3, "PNG", 30, 31, width, width);
+    doc.addImage(logo3, "PNG", 93, 19, lastWidth, lastWidth);
+    doc.addImage(logo3, "PNG", 119, 553, 32, 32);
+
     doc.setFont("Segoe Print");
     doc.setFontStyle("bold");
     doc.setTextColor(23,28,61);
