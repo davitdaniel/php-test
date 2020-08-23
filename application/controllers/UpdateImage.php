@@ -52,7 +52,7 @@ class UpdateImage extends REST_Controller {
             'user_avatar_file' => $user_avatar_file_data,
             'product_logo_file' => $product_logo_file_data
         );
-        if($data->user_avatar_file == '' && $data->user_avatar_file == '' ) {
+        if($data->user_avatar_file === '' && $data->product_logo_file === '' ) {
             $data = $this->pm->getPrintInfo($id);
             $this->response($data, REST_Controller::HTTP_OK);
         }
