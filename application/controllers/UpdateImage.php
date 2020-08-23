@@ -23,7 +23,7 @@ class UpdateImage extends REST_Controller {
         
 		$config['upload_path']          = './';
 		$config['allowed_types']        = 'gif|jpg|png';
-		$config['max_size']             = 2000;
+		$config['max_size']             = 10000;
 		$config['max_width']            = 6000;
 		$config['max_height']           = 6000;
 
