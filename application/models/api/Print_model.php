@@ -17,7 +17,15 @@ class Print_model extends CI_Model{
         }
       	
       	return $data;
-    }
+	}
+	
+	public function getPrintInfoWithFile($id) {
+		if(!empty($id)){
+            $data = $this->db->select("*")->get_where($this->_table, ['id' => $id])->row_array();
+        }
+      	
+      	return $data;
+	}
 
 	
 	public function getCompanyLogoImageById($id) {
