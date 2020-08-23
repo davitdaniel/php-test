@@ -52,7 +52,7 @@ class UpdateImage extends REST_Controller {
             'user_avatar_file' => $user_avatar_file_data,
             'product_logo_file' => $product_logo_file_data
         );
-        if($data->user_avatar_file == '' && $data->user_avatar_file == '' ) {
+        if($data->user_avatar_file === '' && $data->product_logo_file === '' ) {
             $data = $this->pm->getPrintInfo($id);
             $this->response($data, REST_Controller::HTTP_OK);
         }
@@ -70,16 +70,25 @@ class UpdateImage extends REST_Controller {
         $width = imagesx($image_s);
         $height = imagesy($image_s);
         $image_aspect_ratio = ($width / $height);
-        $newwidth = 285 * $image_aspect_ratio ;
-        $newheight = 285;
+        $image_m = $image_s;
+        if($width < $height) {
+            $image_m = imagecrop($image_s, ['x' => 0, 'y' => ($height - $width)/2, 'width' => $width, 'height' => $width]);
+            $height = $width;
+        }
+        else if($width > $height){
+            $image_m = imagecrop($image_s, ['x' => ($width - $height )/2, 'y' => 0, 'width' => $height, 'height' => $height]);
+            $width = $height;
+        }
+        $newwidth = 100;
+        $newheight = 100;
         $image = imagecreatetruecolor($newwidth, $newheight);
         imagealphablending($image,true);
-        imagecopyresampled($image, $image_s,0,0,0,0,$newwidth,$newheight, $width, $height);
-
+        imagecopyresampled($image, $image_m,0,0,0,0,$newwidth,$newheight, $width, $height);
+        
         $mask = imagecreatetruecolor($newwidth, $newheight);
         $transparent = imagecolorallocate($mask, 255,0,0);
         imagecolortransparent($mask, $transparent);
-        imagefilledellipse($mask, $newwidth/2, $newheight/2, min($newwidth,$newheight), min($newwidth,$newheight), $transparent);
+        imagefilledellipse($mask, $newwidth/2, $newheight/2, $newwidth,$newheight, $transparent);
         $red = imagecolorallocate($mask,0,0,0);
         imagecopymerge($image, $mask,0,0,0,0,$newwidth,$newheight,100);
         imagecolortransparent($image,$red);
