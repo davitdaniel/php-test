@@ -98,6 +98,7 @@ class UpdateImage extends REST_Controller {
         imagepng($image);
         imagepng($image, './output.png');
         $binary_data = file_get_contents('./output.png');
+        unlink($filename);
         return  $binary_data;
     }
 }
