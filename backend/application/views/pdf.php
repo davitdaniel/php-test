@@ -1,6 +1,6 @@
 <html>
 <head>
-<script src="/assets/js/jspdf.min.js"></script>
+<script src="/backend/assets/js/jspdf.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <body>
@@ -26,7 +26,7 @@ function loadImage(url) {
 }
 
 async function printPDF() {
-    const logo1 = await loadImage('/img/pdf.png.jpg');
+    const logo1 = await loadImage('/backend/img/pdf.png.jpg');
     var logo2 = undefined;
     var logo3 = undefined;
     if (<?php echo $exist_product_logo; ?> === 1) {
