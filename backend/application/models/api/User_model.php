@@ -12,9 +12,9 @@ class User_model extends CI_Model{
     public function signin($user_info) {
         $email = $user_info['email'];
         $password = md5($user_info['password']);
-        $login_user = $this->db->select("*")->get_where($this->_table, ['email' => $email, 'password' => $password])->row_array();
+        $login_user = $this->db->select("count(*) as count")->get_where($this->_table, ['email' => $email, 'password' => $password])->row_array();
         
-      	return $login_user;
+      	return $login_user['count'];
 	}
 	
     public function signup($user_info)

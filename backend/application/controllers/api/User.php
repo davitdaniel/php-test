@@ -31,10 +31,10 @@ class User extends CI_Controller {
             'message' => 'Login Fail'
         );
 
-        if( isset($login_user) ) {
+        if( $login_user > 0 ) {
             $result = array(
                 'success' => true,
-                'user'    => $login_user,
+                'user'    => '',
                 'token'   => $token,
                 'message' => 'Login Successfully!'
             );
