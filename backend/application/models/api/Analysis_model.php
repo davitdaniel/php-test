@@ -101,4 +101,5 @@ class Analysis_model extends CI_Model{
 		 $data = $this->db->update($this->_table, $data, array('id'=>$id));
 		return $id;
 	}
+
 }

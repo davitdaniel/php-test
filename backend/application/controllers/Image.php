@@ -21,6 +21,26 @@ class Image extends CI_Controller {
         $data = $this->pm->getProductLogoImageById($id);
         $this->output_image($data);
     }
+    
+    public function analysis_company_logo($id) {
+        $this->load->model('api/Analysis_model','am');
+        $data = $this->am->getCompanyLogoImageById($id);
+        $this->output_image($data);
+    }
+
+    public function analysis_user_avatar($id) {
+        $this->load->model('api/Analysis_model','am');
+        $data = $this->am->getUserAvatarById($id);
+        $this->output_image($data);
+        
+        
+    }
+
+    public function analysis_product_logo($id) {
+        $this->load->model('api/Analysis_model','am');
+        $data = $this->am->getProductLogoImageById($id);
+        $this->output_image($data);
+    }
 
     public function output_image($data) {
         if($data != '') {

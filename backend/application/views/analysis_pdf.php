@@ -39,26 +39,26 @@ async function printPDF() {
     var logo2 = undefined;
     var logo3 = undefined;
     if (<?php echo $exist_product_logo; ?> === 1) {
-        logo2 = await loadImage('/backend/index.php/Image/product_logo/<?php echo $id; ?>');
+        logo2 = await loadImage('/backend/index.php/Image/analysis_product_logo/<?php echo $id; ?>');
     }
     if (<?php echo $exist_avatar; ?> === 1) {
-        logo3 = await loadImage('/backend/index.php/Image/user_avatar/<?php echo $id; ?>');
+        logo3 = await loadImage('/backend/index.php/Image/analysis_user_avatar/<?php echo $id; ?>');
     }
     $("#content").height($("body").height());
     const doc = new jsPDF({
         orientation: 'portrait',
         format: [282, 610]
     });
-    const width = 22;
-    const lastWidth = 38;
+    const width = 20;
+    const lastWidth = 37;
     doc.addImage(logo1, "JPEG", 0, 0, 282, 610);
     if (logo2 !== undefined) {
-        doc.addImage(logo2, "PNG", 30, 4.5, width, width);
+        doc.addImage(logo2, "PNG", 33, 6.4, width, width);
     }
     if (logo3 !== undefined) {
-        doc.addImage(logo3, "PNG", 30, 31, width, width);
-        doc.addImage(logo3, "PNG", 93, 19, lastWidth, lastWidth);
-        doc.addImage(logo3, "PNG", 119, 553, 32, 32);
+        doc.addImage(logo3, "PNG", 33, 28.5, width, width);
+        doc.addImage(logo3, "PNG", 105, 18, lastWidth, lastWidth);
+        doc.addImage(logo3, "PNG", 127, 548, 37, 37);
     }
 
     doc.setFont("Segoe Print");
