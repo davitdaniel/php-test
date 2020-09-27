@@ -30,10 +30,10 @@ async function printPDF() {
     var logo2 = undefined;
     var logo3 = undefined;
     if (<?php echo $exist_product_logo; ?> === 1) {
-        logo2 = await loadImage('/index.php/Image/product_logo/<?php echo $id; ?>');
+        logo2 = await loadImage('/backend/index.php/Image/product_logo/<?php echo $id; ?>');
     }
     if (<?php echo $exist_avatar; ?> === 1) {
-        logo3 = await loadImage('/index.php/Image/user_avatar/<?php echo $id; ?>');
+        logo3 = await loadImage('/backend/index.php/Image/user_avatar/<?php echo $id; ?>');
     }
     $("#content").height($("body").height());
     const doc = new jsPDF({

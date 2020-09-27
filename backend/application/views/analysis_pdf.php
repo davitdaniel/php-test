@@ -12,10 +12,19 @@ var sur_name = `<?php echo $sur_name; ?>`;
 var title = `<?php echo $title; ?>`;
 var company_website = `<?php echo $company_website; ?>`;
 var company_name = `<?php echo $company_name; ?>`;
+// var report = `<?php echo $report;?>`;
+var description = `Using a 'SPIN' model to understand your business challenges we were able to explore the issues in more detail.`;
+// var description = `<?php echo $description?>`;
+var product_name = `<?php echo $product_name; ?>`;
+var report = `Based on our understanding of your situation, problem, the implication and your need, we believe that ${product_name} has the ability to work through your challenges and address your needs in a way that solves these problems. We would be happy to explore this in more detail with you.
+
+Sincerely,
+`;
 var textbox1 = `<?php echo $textbox1; ?>`;
 var textbox2 = `<?php echo $textbox2; ?>`;
 var textbox3 = `<?php echo $textbox3; ?>`;
 var textbox4 = `<?php echo $textbox4; ?>`;
+
 
 function loadImage(url) {
     return new Promise((resolve) => {
@@ -30,10 +39,10 @@ async function printPDF() {
     var logo2 = undefined;
     var logo3 = undefined;
     if (<?php echo $exist_product_logo; ?> === 1) {
-        logo2 = await loadImage('/index.php/Image/product_logo/<?php echo $id; ?>');
+        logo2 = await loadImage('/backend/index.php/Image/product_logo/<?php echo $id; ?>');
     }
     if (<?php echo $exist_avatar; ?> === 1) {
-        logo3 = await loadImage('/index.php/Image/user_avatar/<?php echo $id; ?>');
+        logo3 = await loadImage('/backend/index.php/Image/user_avatar/<?php echo $id; ?>');
     }
     $("#content").height($("body").height());
     const doc = new jsPDF({
@@ -77,32 +86,42 @@ async function printPDF() {
     doc.text(`Dear ${arr_title[0]}`, 30, 180);
     doc.setFontStyle("normal");
     doc.setFontSize(18);
-    let arr_content1 = doc.splitTextToSize(`${textbox1}`, 227);
-    arr_content1 = arr_content1.slice(0, 2);
-    doc.text(arr_content1, 30, 190);
-    let arr_content2 = doc.splitTextToSize(`${textbox2}`, 90);
-    arr_content2 = arr_content2.slice(0, 7);
-    doc.text(arr_content2, 170, 310);
+    let arr_description = doc.splitTextToSize(`${description}`, 227);
+    arr_description = arr_description.slice(0, 2);
+    doc.text(arr_description, 30, 190);
+    let arr_content1 = doc.splitTextToSize(`${textbox1}`, 90);
+    arr_content1 = arr_content1.slice(0, 3);
+    doc.text(arr_content1, 30, 256);
+    let arr_content2 = doc.splitTextToSize(`${textbox2}`, 95);
+    arr_content2 = arr_content2.slice(0, 2);
+    doc.text(arr_content2, 160, 303);
     let arr_content3 = doc.splitTextToSize(`${textbox3}`, 90);
-    arr_content3 = arr_content3.slice(0, 5);
-    doc.text(arr_content3, 30, 435);
-    let arr_content4 = doc.splitTextToSize(`${textbox4}`, 220);
-    arr_content4 = arr_content4.slice(0, 3);
-    doc.text(arr_content4, 30, 520);
+    arr_content3 = arr_content3.slice(0, 3);
+    doc.text(arr_content3, 30, 351);
+    let arr_content4 = doc.splitTextToSize(`${textbox4}`, 95);
+    arr_content4 = arr_content4.slice(0, 2);
+    doc.text(arr_content4, 160, 400);
+    let arr_report = doc.splitTextToSize(`${report}`, 225);
+    arr_report = arr_report.slice(0, 6);
+    doc.text(arr_report, 30, 485);
+    doc.setFontSize(20);
+    arr_title = doc.splitTextToSize(`${first_name} ${sur_name}`, 225);
+    doc.text(arr_title[0], 30, 530);
 
     doc.setTextColor(23,28,61);
-    doc.setFontSize(28);
+    doc.setFontSize(30);
+    doc.setFontStyle("bold");
     arr_title = doc.splitTextToSize(`${first_name} ${sur_name}`, 70);
-    doc.text(arr_title[0], 180, 555);
-    doc.setFontSize(18);
+    doc.text(arr_title[0], 190, 550);
+    doc.setFontSize(20);
     doc.setFontStyle("normal");
     arr_title = doc.splitTextToSize(`${title}`, 70);
     arr_title = arr_title.slice(0, 3);
-    doc.text(arr_title, 180, 565);
-    doc.setFontSize(12);
+    doc.text(arr_title, 190, 560);
+    doc.setFontSize(14);
     doc.setTextColor(153,153,153);
-    arr_title = doc.splitTextToSize(`${company_website}`, 70);
-    doc.text(arr_title[0], 180, 590);
+    arr_title = doc.splitTextToSize(`${company_website}asfdasdfasdfasdfasdfasdfasdfasdfasfasdasdfasfasdfasdfasdfasdfasdfasdfasdfasfdasfdasdfasdfasdfasfdasdfasdfasdfasdfasdfasdfasdfasfasdasdfasfasdfasdfasdfasdfasdfasdfasdfasfdasfdasdfasdfasdfasfdasdfasdfasdfasdfasdfasdfasdfasfasdasdfasfasdfasdfasdfasdfasdfasdfasdfasfdasfdasdfasdfasdfasfdasdfasdfasdfasdfasdfasdfasdfasfasdasdfasfasdfasdfasdfasdfasdfasdfasdfasfdasfdasdfasdfasdfasfdasdfasdfasdfasdfasdfasdfasdfasfasdasdfasfasdfasdfasdfasdfasdfasdfasdfasfdasfdasdfasdfasdfasfdasdfasdfasdfasdfasdfasdfasdfasfasdasdfasfasdfasdfasdfasdfasdfasdfasdfasfdasfdasdfasdfasdfasfdasdfasdfasdfasdfasdfasdfasdfasfasdasdfasfasdfasdfasdfasdfasdfasdfasdfasfdasfdasdfasdfasdfasfdasdfasdfasdfasdfasdfasdfasdfasfasdasdfasfasdfasdfasdfasdfasdfasdfasdfasfdasfdasdfasdfasdfasfdasdfasdfasdfasdfasdfasdfasdfasfasdasdfasfasdfasdfasdfasdfasdfasdfasdfasfdasfdasdfasdfasdfasfdasdfasdfasdfasdfasdfasdfasdfasfasdasdfasfasdfasdfasdfasdfasdfasdfasdfasfdasfdasdfasdfasdfasfdasdfasdfasdfasdfasdfasdfasdfasfasdasdfasfasdfasdfasdfasdfasdfasdfasdfasfdasfdasdfasdfasdf`, 70);
+    doc.text(arr_title[0], 190, 585);
     const pdfData = doc.output('datauristring');
     $("#content").html(`<embed style="width: 100%; height: 100%" src="${pdfData}" />`);
 }
