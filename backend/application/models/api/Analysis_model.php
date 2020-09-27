@@ -11,9 +11,9 @@ class Analysis_model extends CI_Model{
 
     public function getPrintInfo($id) {
     	if(!empty($id)){
-            $data = $this->db->select("id, first_name, sur_name, title, company_name,company_logo, company_website, textbox1, textbox2,textbox3,textbox4, color, created_at ")->get_where($this->_table, ['id' => $id])->row_array();
+            $data = $this->db->select("id, first_name, sur_name, title, product_name, description, company_name,company_logo, company_website, textbox1, textbox2,textbox3,textbox4, color, created_at ")->get_where($this->_table, ['id' => $id])->row_array();
         }else{
-            $data = $this->db->select("id, first_name, sur_name, title, company_name, company_logo, company_website, textbox1, textbox2,textbox3,textbox4, color, created_at ")->get($this->_table)->result();
+            $data = $this->db->select("id, first_name, sur_name, title, product_name, description, company_name, company_logo, company_website, textbox1, textbox2,textbox3,textbox4, color, created_at ")->get($this->_table)->result();
         }
       	
       	return $data;
@@ -70,7 +70,10 @@ class Analysis_model extends CI_Model{
 			'textbox2' => $data['textbox2'],
 			'textbox3' => $data['textbox3'],
             'textbox4' => $data['textbox4'],
-            'color'    => $data['color']
+			'color'    => $data['color'],
+			'product_name' => $data['product_name'],
+			'description' => $data['description']
+			
 		);
 
 		$date = date("Y-m-d H:i:s");
