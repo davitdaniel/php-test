@@ -120,7 +120,7 @@ async function printPDF() {
     doc.text(arr_title, 190, 560);
     doc.setFontSize(14);
     doc.setTextColor(153,153,153);
-    arr_title = doc.splitTextToSize(`${company_website}asfdasdfasdfasdfasdfasdfasdfasdfasfasdasdfasfasdfasdfasdfasdfasdfasdfasdfasfdasfdasdfasdfasdfasfdasdfasdfasdfasdfasdfasdfasdfasfasdasdfasfasdfasdfasdfasdfasdfasdfasdfasfdasfdasdfasdfasdfasfdasdfasdfasdfasdfasdfasdfasdfasfasdasdfasfasdfasdfasdfasdfasdfasdfasdfasfdasfdasdfasdfasdfasfdasdfasdfasdfasdfasdfasdfasdfasfasdasdfasfasdfasdfasdfasdfasdfasdfasdfasfdasfdasdfasdfasdfasfdasdfasdfasdfasdfasdfasdfasdfasfasdasdfasfasdfasdfasdfasdfasdfasdfasdfasfdasfdasdfasdfasdfasfdasdfasdfasdfasdfasdfasdfasdfasfasdasdfasfasdfasdfasdfasdfasdfasdfasdfasfdasfdasdfasdfasdfasfdasdfasdfasdfasdfasdfasdfasdfasfasdasdfasfasdfasdfasdfasdfasdfasdfasdfasfdasfdasdfasdfasdfasfdasdfasdfasdfasdfasdfasdfasdfasfasdasdfasfasdfasdfasdfasdfasdfasdfasdfasfdasfdasdfasdfasdfasfdasdfasdfasdfasdfasdfasdfasdfasfasdasdfasfasdfasdfasdfasdfasdfasdfasdfasfdasfdasdfasdfasdfasfdasdfasdfasdfasdfasdfasdfasdfasfasdasdfasfasdfasdfasdfasdfasdfasdfasdfasfdasfdasdfasdfasdfasfdasdfasdfasdfasdfasdfasdfasdfasfasdasdfasfasdfasdfasdfasdfasdfasdfasdfasfdasfdasdfasdfasdf`, 70);
+    arr_title = doc.splitTextToSize(`${company_website}`, 70);
     doc.text(arr_title[0], 190, 585);
     const pdfData = doc.output('datauristring');
     $("#content").html(`<embed style="width: 100%; height: 100%" src="${pdfData}" />`);
