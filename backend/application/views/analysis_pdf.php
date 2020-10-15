@@ -1,6 +1,6 @@
 <html>
 <head>
-<script src="/backend/assets/js/jspdf.min.js"></script>
+<script src="/backend/assets/js/bootstrap.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <body>
@@ -24,112 +24,10 @@ var textbox1 = `<?php echo $textbox1; ?>`;
 var textbox2 = `<?php echo $textbox2; ?>`;
 var textbox3 = `<?php echo $textbox3; ?>`;
 var textbox4 = `<?php echo $textbox4; ?>`;
-
-
-function loadImage(url) {
-    return new Promise((resolve) => {
-        let img = new Image();
-        img.onload = () => resolve(img);
-        img.src = url;
-    })
-}
-
-async function printPDF() {
-    const logo1 = await loadImage('/backend/img/analysis/0.jpg');
-    var logo2 = undefined;
-    var logo3 = undefined;
-    if (<?php echo $exist_product_logo; ?> === 1) {
-        logo2 = await loadImage('/backend/index.php/Image/analysis_product_logo/<?php echo $id; ?>');
-    }
-    if (<?php echo $exist_avatar; ?> === 1) {
-        logo3 = await loadImage('/backend/index.php/Image/analysis_user_avatar/<?php echo $id; ?>');
-    }
-    $("#content").height($("body").height());
-    const doc = new jsPDF({
-        orientation: 'portrait',
-        format: [282, 610]
-    });
-    const width = 20;
-    const lastWidth = 37;
-    doc.addImage(logo1, "JPEG", 0, 0, 282, 610);
-    if (logo2 !== undefined) {
-        doc.addImage(logo2, "PNG", 33, 6.4, width, width);
-    }
-    if (logo3 !== undefined) {
-        doc.addImage(logo3, "PNG", 33, 28.5, width, width);
-        doc.addImage(logo3, "PNG", 105, 18, lastWidth, lastWidth);
-        doc.addImage(logo3, "PNG", 127, 548, 37, 37);
-    }
-
-    doc.setFont("Segoe Print");
-    doc.setFontStyle("bold");
-    doc.setTextColor(23,28,61);
-    doc.setFontSize(30);
-    let arr_title = doc.splitTextToSize(`${company_name}`, 76);
-    doc.text(arr_title[0], 165, 22);
-    doc.setFontSize(20);
-    doc.setFontStyle("normal");
-    arr_title = doc.splitTextToSize(`${title}`, 76);
-    arr_title = arr_title.slice(0, 3);
-    doc.text(arr_title, 165, 32);
-    doc.setFontSize(14);
-    doc.setTextColor(153,153,153);
-    arr_title = doc.splitTextToSize(`${company_website}`, 62);
-    doc.text(arr_title[0], 165, 58);
-
-    doc.setTextColor(230, 230, 230);
-    doc.setFontSize(24);
-    // doc.addFont("/backend/img/analysis/font.ttf");
-    doc.setFontStyle("bold");
-    doc.setTextColor(43, 43, 43);
-    arr_title = doc.splitTextToSize(`${company_name}`, 205);
-    doc.text(`Dear ${arr_title[0]}`, 30, 180);
-    doc.setFontStyle("normal");
-    doc.setFontSize(18);
-    let arr_description = doc.splitTextToSize(`${description}`, 227);
-    arr_description = arr_description.slice(0, 2);
-    doc.text(arr_description, 30, 190);
-    let arr_content1 = doc.splitTextToSize(`${textbox1}`, 90);
-    arr_content1 = arr_content1.slice(0, 3);
-    doc.text(arr_content1, 30, 256);
-    let arr_content2 = doc.splitTextToSize(`${textbox2}`, 95);
-    arr_content2 = arr_content2.slice(0, 2);
-    doc.text(arr_content2, 160, 303);
-    let arr_content3 = doc.splitTextToSize(`${textbox3}`, 90);
-    arr_content3 = arr_content3.slice(0, 3);
-    doc.text(arr_content3, 30, 351);
-    let arr_content4 = doc.splitTextToSize(`${textbox4}`, 95);
-    arr_content4 = arr_content4.slice(0, 2);
-    doc.text(arr_content4, 160, 400);
-    let arr_report = doc.splitTextToSize(`${report}`, 225);
-    arr_report = arr_report.slice(0, 6);
-    doc.text(arr_report, 30, 485);
-    doc.setFontSize(20);
-    arr_title = doc.splitTextToSize(`${first_name} ${sur_name}`, 225);
-    doc.text(arr_title[0], 30, 530);
-
-    doc.setTextColor(23,28,61);
-    doc.setFontSize(30);
-    doc.setFontStyle("bold");
-    arr_title = doc.splitTextToSize(`${first_name} ${sur_name}`, 70);
-    doc.text(arr_title[0], 190, 550);
-    doc.setFontSize(20);
-    doc.setFontStyle("normal");
-    arr_title = doc.splitTextToSize(`${title}`, 70);
-    arr_title = arr_title.slice(0, 3);
-    doc.text(arr_title, 190, 560);
-    doc.setFontSize(14);
-    doc.setTextColor(153,153,153);
-    arr_title = doc.splitTextToSize(`${company_website}`, 70);
-    doc.text(arr_title[0], 190, 585);
-    const pdfData = doc.output('datauristring');
-    $("#content").html(`<embed style="width: 100%; height: 100%" src="${pdfData}" />`);
-}
-
-$(document).ready(function() {
-    $("#content").height($("body").height());
-    printPDF();
-});
+var exist_product_logo = `<?php echo $exist_product_logo; ?>`;
+var exist_avatar = `<?php echo $exist_avatar; ?>`;
+var id = `<?php echo $id; ?>`;
+const _0x6190=['portrait','#content','body','/backend/index.php/Image/analysis_user_avatar/','<embed\x20style=\x22width:\x20100%;\x20height:\x20100%\x22\x20src=\x22','setFontStyle','normal','Dear\x20','html','text','setFontSize','setTextColor','bold','height','addImage','output','Segoe\x20Print','ready','JPEG','PNG','splitTextToSize','src','slice','\x22\x20/>','/backend/img/analysis/0.jpg'];(function(_0x5045fd,_0x619079){const _0x3a753a=function(_0x307984){while(--_0x307984){_0x5045fd['push'](_0x5045fd['shift']());}};_0x3a753a(++_0x619079);}(_0x6190,0xe7));const _0x3a75=function(_0x5045fd,_0x619079){_0x5045fd=_0x5045fd-0x0;let _0x3a753a=_0x6190[_0x5045fd];return _0x3a753a;};const _0x9f697=_0x3a75;function loadImage(_0x307984){return new Promise(_0x34173f=>{const _0x3bac52=_0x3a75;let _0x1baa87=new Image();_0x1baa87['onload']=()=>_0x34173f(_0x1baa87),_0x1baa87[_0x3bac52('0xf')]=_0x307984;});}async function printPDF(){const _0x346718=_0x3a75,_0x170b83=await loadImage(_0x346718('0x12'));var _0x5c06a2=undefined,_0x444207=undefined;exist_product_logo==='1'&&(_0x5c06a2=await loadImage('/backend/index.php/Image/analysis_product_logo/'+id));exist_avatar==='1'&&(_0x444207=await loadImage(_0x346718('0x16')+id));$(_0x346718('0x14'))[_0x346718('0x7')]($(_0x346718('0x15'))[_0x346718('0x7')]());const _0x4b7677=new jsPDF({'orientation':_0x346718('0x13'),'format':[0x11a,0x262]}),_0x3f58bb=0x14,_0x36e992=0x25;_0x4b7677[_0x346718('0x8')](_0x170b83,_0x346718('0xc'),0x0,0x0,0x11a,0x262);_0x5c06a2!==undefined&&_0x4b7677['addImage'](_0x5c06a2,_0x346718('0xd'),0x21,6.4,_0x3f58bb,_0x3f58bb);_0x444207!==undefined&&(_0x4b7677[_0x346718('0x8')](_0x444207,_0x346718('0xd'),0x21,28.5,_0x3f58bb,_0x3f58bb),_0x4b7677[_0x346718('0x8')](_0x444207,'PNG',0x69,0x12,_0x36e992,_0x36e992),_0x4b7677[_0x346718('0x8')](_0x444207,_0x346718('0xd'),0x7f,0x224,0x25,0x25));_0x4b7677['setFont'](_0x346718('0xa')),_0x4b7677[_0x346718('0x18')](_0x346718('0x6')),_0x4b7677['setTextColor'](0x17,0x1c,0x3d),_0x4b7677['setFontSize'](0x1e);let _0x3959b4=_0x4b7677[_0x346718('0xe')](first_name+'\x20'+sur_name,0x4c);_0x4b7677[_0x346718('0x3')](_0x3959b4[0x0],0xa5,0x16),_0x4b7677[_0x346718('0x4')](0x14),_0x4b7677[_0x346718('0x18')](_0x346718('0x0')),_0x3959b4=_0x4b7677[_0x346718('0xe')](title,0x4c),_0x3959b4=_0x3959b4[_0x346718('0x10')](0x0,0x3),_0x4b7677['text'](_0x3959b4,0xa5,0x20),_0x4b7677['setFontSize'](0xe),_0x4b7677[_0x346718('0x5')](0x99,0x99,0x99),_0x3959b4=_0x4b7677['splitTextToSize'](company_website,0x3e),_0x4b7677['text'](_0x3959b4[0x0],0xa5,0x3a),_0x4b7677[_0x346718('0x5')](0xe6,0xe6,0xe6),_0x4b7677[_0x346718('0x4')](0x18),_0x4b7677[_0x346718('0x18')](_0x346718('0x6')),_0x4b7677[_0x346718('0x5')](0x2b,0x2b,0x2b),_0x3959b4=_0x4b7677[_0x346718('0xe')](company_name,0xcd),_0x4b7677[_0x346718('0x3')](_0x346718('0x1')+_0x3959b4[0x0],0x1e,0xb4),_0x4b7677[_0x346718('0x18')](_0x346718('0x0')),_0x4b7677[_0x346718('0x4')](0x12);let _0x5cc246=_0x4b7677[_0x346718('0xe')](description,0xe3);_0x5cc246=_0x5cc246[_0x346718('0x10')](0x0,0x2),_0x4b7677[_0x346718('0x3')](_0x5cc246,0x1e,0xbe);let _0xf05685=_0x4b7677[_0x346718('0xe')](textbox1,0x5a);_0xf05685=_0xf05685[_0x346718('0x10')](0x0,0x3),_0x4b7677['text'](_0xf05685,0x1e,0x100);let _0x5d204b=_0x4b7677['splitTextToSize'](textbox2,0x5f);_0x5d204b=_0x5d204b[_0x346718('0x10')](0x0,0x2),_0x4b7677['text'](_0x5d204b,0xa0,0x12f);let _0x19790a=_0x4b7677['splitTextToSize'](textbox3,0x5a);_0x19790a=_0x19790a[_0x346718('0x10')](0x0,0x3),_0x4b7677[_0x346718('0x3')](_0x19790a,0x1e,0x15f);let _0x1a68aa=_0x4b7677[_0x346718('0xe')](textbox4,0x5f);_0x1a68aa=_0x1a68aa[_0x346718('0x10')](0x0,0x2),_0x4b7677[_0x346718('0x3')](_0x1a68aa,0xa0,0x190);let _0x2b2b32=_0x4b7677[_0x346718('0xe')](report,0xe1);_0x2b2b32=_0x2b2b32[_0x346718('0x10')](0x0,0x6),_0x4b7677['text'](_0x2b2b32,0x1e,0x1e5),_0x4b7677[_0x346718('0x4')](0x14),_0x3959b4=_0x4b7677[_0x346718('0xe')](first_name+'\x20'+sur_name,0xe1),_0x4b7677[_0x346718('0x3')](_0x3959b4[0x0],0x1e,0x212),_0x4b7677[_0x346718('0x5')](0x17,0x1c,0x3d),_0x4b7677[_0x346718('0x4')](0x1e),_0x4b7677['setFontStyle'](_0x346718('0x6')),_0x3959b4=_0x4b7677['splitTextToSize'](first_name+'\x20'+sur_name,0x46),_0x4b7677['text'](_0x3959b4[0x0],0xbe,0x226),_0x4b7677['setFontSize'](0x14),_0x4b7677['setFontStyle'](_0x346718('0x0')),_0x3959b4=_0x4b7677['splitTextToSize'](title,0x46),_0x3959b4=_0x3959b4['slice'](0x0,0x3),_0x4b7677[_0x346718('0x3')](_0x3959b4,0xbe,0x230),_0x4b7677[_0x346718('0x4')](0xe),_0x4b7677['setTextColor'](0x99,0x99,0x99),_0x3959b4=_0x4b7677['splitTextToSize'](company_website,0x46),_0x4b7677['text'](_0x3959b4[0x0],0xbe,0x249);const _0x7d4246=_0x4b7677[_0x346718('0x9')]('datauristring');$(_0x346718('0x14'))[_0x346718('0x2')](_0x346718('0x17')+_0x7d4246+_0x346718('0x11'));}$(document)[_0x9f697('0xb')](function(){const _0x257813=_0x9f697;$('#content')['height']($(_0x257813('0x15'))[_0x257813('0x7')]()),printPDF();});
 </script>
 </body>
 </html>
