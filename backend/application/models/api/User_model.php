@@ -22,5 +22,18 @@ class User_model extends CI_Model{
         $user_info['password'] = md5($user_info['password']);
     	$this->db->insert($this->_table, $user_info);
 		return $this->db->insert_id();
-	}
+  }
+  
+  public function getUserInfo($email) {
+    $login_user = $this->db->select("*")->get_where($this->_table, ['email' => $email])->row_array();
+    return $login_user;
+  }
+
+  public function changePassword($user_info) {
+    $this->db->where('id', $user_info['id']);
+    $this->db->set('password', md5($user_info['password']));
+    $result = $this->db->update($this->_table);
+    return $result;
+  }
+  
 }
