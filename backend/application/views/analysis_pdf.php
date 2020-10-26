@@ -7,6 +7,7 @@
 <div id="content" style="width: 100%">
 </div>
 <script>
+var user_name = `<?php echo $user_name; ?>`;
 var first_name = `<?php echo $first_name; ?>`;  
 var sur_name = `<?php echo $sur_name; ?>`;
 var title = `<?php echo $title; ?>`;
@@ -111,7 +112,7 @@ async function printPDF() {
     doc.setTextColor(23,28,61);
     doc.setFontSize(30);
     doc.setFontStyle("bold");
-    arr_title = doc.splitTextToSize(`${first_name} ${sur_name}`, 70);
+    arr_title = doc.splitTextToSize(`${user_name}`, 70);
     doc.text(arr_title[0], 190, 550);
     doc.setFontSize(20);
     doc.setFontStyle("normal");

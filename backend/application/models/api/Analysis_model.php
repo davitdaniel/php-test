@@ -61,6 +61,8 @@ class Analysis_model extends CI_Model{
     public function insert($data)
 	{
 		$data = array(
+			'email' => isset($data['email'])? $data['email'] : '',
+			'user_name' => isset($data['user_name'])? $data['user_name'] : '',
 			'first_name' => $data['first_name'],
 			'sur_name' => $data['sur_name'],
 			'title' => $data['title'],
