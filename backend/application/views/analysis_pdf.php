@@ -53,26 +53,29 @@ async function printPDF() {
     const width = 20;
     const lastWidth = 37;
     doc.addImage(logo1, "JPEG", 0, 0, 282, 610);
-    if (logo2 !== undefined) {
-        doc.addImage(logo2, "PNG", 33, 6.4, width, width);
-    }
     if (logo3 !== undefined) {
-        doc.addImage(logo3, "PNG", 33, 28.5, width, width);
-        doc.addImage(logo3, "PNG", 105, 18, lastWidth, lastWidth);
-        doc.addImage(logo3, "PNG", 127, 548, 37, 37);
+        doc.addImage(logo3, "PNG", 33, 6.4, width, width);
+    }
+    if (logo2 !== undefined) {
+        doc.addImage(logo2, "PNG", 33, 28.5, width, width);
+        doc.addImage(logo2, "PNG", 105, 18, lastWidth, lastWidth);
+        doc.addImage(logo2, "PNG", 127, 548, 37, 37);
     }
 
     doc.setFont("Segoe Print");
     doc.setFontStyle("bold");
     doc.setTextColor(23,28,61);
     doc.setFontSize(30);
-    let arr_title = doc.splitTextToSize(`${company_name}`, 76);
+    let arr_title = doc.splitTextToSize(`${first_name} ${sur_name}`, 76);
     doc.text(arr_title[0], 165, 22);
     doc.setFontSize(20);
     doc.setFontStyle("normal");
     arr_title = doc.splitTextToSize(`${title}`, 76);
-    arr_title = arr_title.slice(0, 3);
+    arr_title = arr_title.slice(0, 2);
     doc.text(arr_title, 165, 32);
+    arr_title = doc.splitTextToSize(`${company_name}`, 76);
+    arr_title = arr_title.slice(0, 1);
+    doc.text(arr_title, 165, 47);
     doc.setFontSize(14);
     doc.setTextColor(153,153,153);
     arr_title = doc.splitTextToSize(`${company_website}`, 62);
