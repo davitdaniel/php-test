@@ -56,11 +56,11 @@ async function printPDF() {
     doc.addImage(logo1, "JPEG", 0, 0, 282, 610);
     if (logo3 !== undefined) {
         doc.addImage(logo3, "PNG", 33, 6.3, width, width);
+        doc.addImage(logo3, "PNG", 126.5, 548, lastWidth, lastWidth);
     }
     if (logo2 !== undefined) {
         doc.addImage(logo2, "PNG", 33, 28.5, width, width);
         doc.addImage(logo2, "PNG", 104.5, 18, lastWidth, lastWidth);
-        doc.addImage(logo3, "PNG", 126.5, 548, lastWidth, lastWidth);
     }
 
     doc.setFont("Segoe Print");

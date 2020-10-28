@@ -44,12 +44,12 @@ async function printPDF() {
     const lastWidth = 38;
     doc.addImage(logo1, "JPEG", 0, 0, 282, 610);
     if (logo2 !== undefined) {
-        doc.addImage(logo2, "PNG", 30, 4.5, width, width);
+        doc.addImage(logo3, "PNG", 30, 4.5, width, width);
+        doc.addImage(logo3, "PNG", 119, 553, 32, 32);
     }
     if (logo3 !== undefined) {
-        doc.addImage(logo3, "PNG", 30, 31, width, width);
-        doc.addImage(logo3, "PNG", 93, 19, lastWidth, lastWidth);
-        doc.addImage(logo3, "PNG", 119, 553, 32, 32);
+        doc.addImage(logo2, "PNG", 30, 31, width, width);
+        doc.addImage(logo2, "PNG", 93, 19, lastWidth, lastWidth);
     }
 
     doc.setFont("Segoe Print");
