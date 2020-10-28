@@ -52,15 +52,15 @@ async function printPDF() {
         format: [282, 610]
     });
     const width = 20;
-    const lastWidth = 37;
+    const lastWidth = 37.5;
     doc.addImage(logo1, "JPEG", 0, 0, 282, 610);
     if (logo3 !== undefined) {
-        doc.addImage(logo3, "PNG", 33, 6.4, width, width);
+        doc.addImage(logo3, "PNG", 33, 6.3, width, width);
     }
     if (logo2 !== undefined) {
         doc.addImage(logo2, "PNG", 33, 28.5, width, width);
-        doc.addImage(logo2, "PNG", 105, 18, lastWidth, lastWidth);
-        doc.addImage(logo2, "PNG", 127, 548, 37, 37);
+        doc.addImage(logo2, "PNG", 104.5, 18, lastWidth, lastWidth);
+        doc.addImage(logo3, "PNG", 126.5, 548, lastWidth, lastWidth);
     }
 
     doc.setFont("Segoe Print");
@@ -71,26 +71,29 @@ async function printPDF() {
     doc.text(arr_title[0], 165, 22);
     doc.setFontSize(20);
     doc.setFontStyle("normal");
-    arr_title = doc.splitTextToSize(`${title}`, 76);
+    arr_title = doc.splitTextToSize(`${title}asdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdf`, 76);
     arr_title = arr_title.slice(0, 2);
     doc.text(arr_title, 165, 32);
-    arr_title = doc.splitTextToSize(`${company_name}`, 76);
+    arr_title = doc.splitTextToSize(`${company_name}asdfasdfasdfasdfas`, 76);
     arr_title = arr_title.slice(0, 1);
-    doc.text(arr_title, 165, 47);
+    doc.text(arr_title, 165, 49);
     doc.setFontSize(14);
     doc.setTextColor(153,153,153);
     arr_title = doc.splitTextToSize(`${company_website}`, 62);
     doc.text(arr_title[0], 165, 58);
 
-    doc.setFontSize(22);
+    doc.setFontSize(90);
+    doc.setFontStyle("bold");
+    doc.setTextColor(255,255,255);
+    arr_title = doc.splitTextToSize(`:`, 205);
+    doc.text(arr_title[0], 220, 113);
+
+    doc.setFontSize(50);
     doc.setFontStyle("bold");
     doc.setTextColor(247,196,42);
-    arr_title = doc.splitTextToSize(`${title}:`, 205);
+    arr_title = doc.splitTextToSize(`${company_name}`, 200);
+    doc.text(arr_title[0], 140, 132, null, null, "center");
     arr_title = arr_title.slice(0, 1);
-    doc.text(arr_title[0], 120, 126);
-    arr_title = doc.splitTextToSize(`${company_name}`, 205);
-    arr_title = arr_title.slice(0, 1);
-    doc.text(arr_title[0], 120, 135);
 
     doc.setTextColor(230, 230, 230);
     doc.setFontSize(24);
