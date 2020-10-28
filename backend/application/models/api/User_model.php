@@ -36,4 +36,23 @@ class User_model extends CI_Model{
     return $result;
   }
   
+  public function updateUserInfo($id, $email, $user_name) {
+    $this->db->where('id', $id);
+    $this->db->set('email',$email);
+    $this->db->set('first_name',$user_name);
+    $result = $this->db->update($this->_table);
+    return $result;
+  }
+
+  public function getUserInfoById($id) {
+    $login_user = $this->db->select("file")->get_where($this->_table, ['id' => $id])->row_array();
+    return $login_user;
+  }
+
+  public function updateUserAvatar($id, $fileData) {
+    $this->db->where('id', $id);
+    $this->db->set('file',$fileData);
+    $result = $this->db->update($this->_table);
+    return $result;
+  }
 }

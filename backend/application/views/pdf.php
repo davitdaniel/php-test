@@ -1,6 +1,6 @@
 <html>
 <head>
-<script src="/backend/assets/js/jspdf.min.js"></script>
+<script src="/backend/assets/js/jquery.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <body>

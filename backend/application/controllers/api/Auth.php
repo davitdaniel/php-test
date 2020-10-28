@@ -31,9 +31,14 @@ class Auth extends CI_Controller {
             $this->session->set_userdata(array(
                 'email' => $email
             ));
+            $login_user = $this->um->getUserInfo($email);
             $result = array(
                 'success' => true,
                 'token_type'    => 'bearer',
+                'id' => $login_user['id'],
+                'user_name' => $login_user["first_name"],
+                'email' => $login_user["email"],
+                'file' => '',//$login_user["file"],
                 'access_token'   => session_id(),
                 'message' => 'Login Successfully!'
             );
@@ -42,6 +47,15 @@ class Auth extends CI_Controller {
         header('Content-Type: application/json');
         echo json_encode($result);
         
+    }
+
+    public function user_photo($id) {
+        $data = $this->retrieveJsonPostData();
+        // $id      = $data->id;
+        $login_user = $this->um->getUserInfoById($id);
+        $file = $login_user['file'];
+        header('Content-Type: image/png');
+        echo $file;
     }
     
     public function refresh() {
@@ -189,5 +203,82 @@ class Auth extends CI_Controller {
             
         }
         echo json_encode($result);
+    }
+
+    public function updateUserInfo() {
+        $data = $this->retrieveJsonPostData();
+        $id      = $data->id;
+        $email      = $data->email;
+        $user_name   = $data->user_name;
+
+        $flag = $this->um->updateUserInfo($id, $email, $user_name);
+    }
+
+    public function update_avatar() {
+        $input = $this->input->post();
+        $config['upload_path']          = './';
+		$config['allowed_types']        = 'gif|jpg|png';
+		$config['max_size']             = 10000;
+		$config['max_width']            = 6000;
+		$config['max_height']           = 6000;
+
+		$this->load->library('upload', $config);
+        $logo_file_data = '';
+		if ($this->upload->do_upload('user_avatar'))
+		{
+            $upload_logo_file_data = $this->upload->data();
+            $logo_file_data = $this->image_crop($upload_logo_file_data["full_path"]);
+        }
+        
+        $data = $this->um->updateUserAvatar($input["id"], $logo_file_data);
+        $result = array(
+            'success' => false
+        );
+
+        if( $data > 0 ) {
+            $result = array(
+                'success' => true,
+                'message' => 'SignUp Successfully!'
+            );
+        }
+        header('Content-Type: application/json');
+        echo json_encode($result);
+    }
+
+    public function image_crop($filename) {
+        $image_s = imagecreatefromstring(file_get_contents($filename));
+        $width = imagesx($image_s);
+        $height = imagesy($image_s);
+        $image_aspect_ratio = ($width / $height);
+        $image_m = $image_s;
+        if($width < $height) {
+            $image_m = imagecrop($image_s, ['x' => 0, 'y' => ($height - $width)/2, 'width' => $width, 'height' => $width]);
+            $height = $width;
+        }
+        else if($width > $height){
+            $image_m = imagecrop($image_s, ['x' => ($width - $height )/2, 'y' => 0, 'width' => $height, 'height' => $height]);
+            $width = $height;
+        }
+        $newwidth = 100;
+        $newheight = 100;
+        $image = imagecreatetruecolor($newwidth, $newheight);
+        imagealphablending($image,true);
+        imagecopyresampled($image, $image_m,0,0,0,0,$newwidth,$newheight, $width, $height);
+        
+        $mask = imagecreatetruecolor($newwidth, $newheight);
+        $transparent = imagecolorallocate($mask, 255,0,0);
+        imagecolortransparent($mask, $transparent);
+        imagefilledellipse($mask, $newwidth/2, $newheight/2, $newwidth,$newheight, $transparent);
+        $red = imagecolorallocate($mask,0,0,0);
+        imagecopymerge($image, $mask,0,0,0,0,$newwidth,$newheight,100);
+        imagecolortransparent($image,$red);
+        imagefill($image, 0, 0, $red);
+
+        header('Conent-type: image/png');
+        
+        imagepng($image, './output.png');
+        $binary_data = file_get_contents('./output.png');
+        unlink($filename);
+        return  $binary_data;
     }
 }

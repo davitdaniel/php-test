@@ -8,7 +8,8 @@ class NeedsAnalysisUpdateImage extends REST_Controller {
    		header("Access-Control-Allow-Headers: X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Request-Method");
     	header("Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE");
 		parent::__construct();
-		$this->load->model('api/Analysis_model','am');
+        $this->load->model('api/Analysis_model','am');
+        $this->load->model('api/User_model','um');
     }
 
     public function index_get($id = 0) {
@@ -20,7 +21,8 @@ class NeedsAnalysisUpdateImage extends REST_Controller {
     public function index_post() {
         $id = $this->input->get("id");
         $input = $this->post();
-        
+        $user_id = $input['user_id'];
+        $user_info = $this->um->getUserInfoById($user_id);
 		$config['upload_path']          = './';
 		$config['allowed_types']        = 'gif|jpg|png';
 		$config['max_size']             = 10000;
@@ -36,17 +38,21 @@ class NeedsAnalysisUpdateImage extends REST_Controller {
             $upload_product_logo_file_data = $this->upload->data();
             $product_logo_file_data = $this->image_crop($upload_product_logo_file_data["full_path"]);
 		}
-       if ($this->upload->do_upload('user_avatar'))
+
+        if ($this->upload->do_upload('user_avatar'))
 		{
             $upload_user_avatar_file_data = $this->upload->data();
             $user_avatar_file_data = $this->image_crop($upload_user_avatar_file_data["full_path"]);
+        } else {
+            $user_avatar_file_data = $user_info['file'];
         }
-        
+
         if ($this->upload->do_upload('company_logo'))
 		{
             $upload_company_logo_file_data = $this->upload->data();
             $company_logo_file_data = $this->image_crop($upload_company_logo_file_data["full_path"]);
-		}
+        }
+        
         $data = array(
             'company_logo_file' => $company_logo_file_data,
             'user_avatar_file' => $user_avatar_file_data,
