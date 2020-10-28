@@ -71,10 +71,10 @@ async function printPDF() {
     doc.text(arr_title[0], 165, 22);
     doc.setFontSize(20);
     doc.setFontStyle("normal");
-    arr_title = doc.splitTextToSize(`${title}asdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdf`, 76);
+    arr_title = doc.splitTextToSize(`${title}`, 76);
     arr_title = arr_title.slice(0, 2);
     doc.text(arr_title, 165, 32);
-    arr_title = doc.splitTextToSize(`${company_name}asdfasdfasdfasdfas`, 76);
+    arr_title = doc.splitTextToSize(`${company_name}`, 76);
     arr_title = arr_title.slice(0, 1);
     doc.text(arr_title, 165, 49);
     doc.setFontSize(14);
