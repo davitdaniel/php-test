@@ -8,6 +8,7 @@
 </div>
 <script>
 var user_name = `<?php echo $user_name; ?>`;
+var color = `<?php echo $color; ?>`;
 var first_name = `<?php echo $first_name; ?>`;  
 var sur_name = `<?php echo $sur_name; ?>`;
 var title = `<?php echo $title; ?>`;
@@ -36,7 +37,7 @@ function loadImage(url) {
 }
 
 async function printPDF() {
-    const logo1 = await loadImage('/backend/img/analysis/0.jpg');
+    const logo1 = await loadImage('/backend/img/analysis/' + color + '.jpg');
     var logo2 = undefined;
     var logo3 = undefined;
     if (<?php echo $exist_product_logo; ?> === 1) {
@@ -80,6 +81,16 @@ async function printPDF() {
     doc.setTextColor(153,153,153);
     arr_title = doc.splitTextToSize(`${company_website}`, 62);
     doc.text(arr_title[0], 165, 58);
+
+    doc.setFontSize(22);
+    doc.setFontStyle("bold");
+    doc.setTextColor(247,196,42);
+    arr_title = doc.splitTextToSize(`${title}:`, 205);
+    arr_title = arr_title.slice(0, 1);
+    doc.text(arr_title[0], 120, 126);
+    arr_title = doc.splitTextToSize(`${company_name}`, 205);
+    arr_title = arr_title.slice(0, 1);
+    doc.text(arr_title[0], 120, 135);
 
     doc.setTextColor(230, 230, 230);
     doc.setFontSize(24);
