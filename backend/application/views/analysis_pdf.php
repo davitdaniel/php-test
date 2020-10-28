@@ -79,7 +79,7 @@ async function printPDF() {
     doc.text(arr_title, 165, 49);
     doc.setFontSize(14);
     doc.setTextColor(153,153,153);
-    arr_title = doc.splitTextToSize(`${company_website}`, 62);
+    arr_title = doc.splitTextToSize(`${company_website}`, 59);
     doc.text(arr_title[0], 165, 58);
 
     doc.setFontSize(90);
