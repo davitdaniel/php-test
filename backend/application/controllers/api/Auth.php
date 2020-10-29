@@ -218,9 +218,9 @@ class Auth extends CI_Controller {
         $input = $this->input->post();
         $config['upload_path']          = './';
 		$config['allowed_types']        = 'gif|jpg|png';
-		$config['max_size']             = 10000;
-		$config['max_width']            = 6000;
-		$config['max_height']           = 6000;
+		$config['max_size']             = 100000;
+		$config['max_width']            = 60000;
+		$config['max_height']           = 60000;
 
 		$this->load->library('upload', $config);
         $logo_file_data = '';
