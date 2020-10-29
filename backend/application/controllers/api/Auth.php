@@ -54,7 +54,7 @@ class Auth extends CI_Controller {
         // $id      = $data->id;
         $login_user = $this->um->getUserInfoById($id);
         $file = $login_user['file'];
-        header('Content-Type: image/png');
+        header('Content-Type: image/*');
         echo $file;
     }
     
