@@ -81,7 +81,7 @@ class NeedsAnalysisUpdateImage extends REST_Controller {
             $image_m = imagecrop($image_s, ['x' => 0, 'y' => ($height - $width)/2, 'width' => $width, 'height' => $width]);
             $height = $width;
         }
-        else if($width > $height){
+        else {
             $image_m = imagecrop($image_s, ['x' => ($width - $height )/2, 'y' => 0, 'width' => $height, 'height' => $height]);
             $width = $height;
         }
